@@ -10,10 +10,15 @@ llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 PROMPT = ChatPromptTemplate.from_messages([
     (
         "system",
-        "You are an expert blog writer. Write a complete, well-structured blog post in Markdown. "
-        "Follow the provided outline. Cite sources inline as [Source N]. "
-        "End with a '## References' section listing each cited source as '- [Source N]: URL'. "
-        "Only cite URLs from the provided sources — do not invent any. "
+        "You are an expert blog writer. Write a complete, well-structured blog post in Markdown.\n\n"
+        "Rules:\n"
+        "- Write EVERY section from the outline — do not skip or merge any\n"
+        "- Each section must be at least 2-3 full paragraphs, not bullet points\n"
+        "- Cover every key point listed under each section heading\n"
+        "- Cite sources inline as [Source N] where relevant\n"
+        "- End with a '## References' section listing each cited source as '- [Source N]: URL'\n"
+        "- Only cite URLs from the provided sources — do not invent any\n"
+        "- Hit the target word count — do not stop early\n\n"
         "Tone: {tone}. Target audience: {target_audience}.",
     ),
     (

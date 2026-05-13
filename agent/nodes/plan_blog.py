@@ -11,22 +11,26 @@ llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
 
 class BlogSection(BaseModel):
     heading: str
-    key_points: list[str]
+    key_points: list[str]  # must have at least 3 items
 
 
 class BlogOutline(BaseModel):
     title: str
     intro_hook: str
-    sections: list[BlogSection]
+    sections: list[BlogSection]  # must have at least 5 items
     search_query: str
 
 
 PROMPT = ChatPromptTemplate.from_messages([
     (
         "system",
-        "You are a blog strategist. Given a topic, tone, and target audience, create a clear blog outline "
-        "with a compelling title, a one-sentence intro hook, and 4-6 sections. Each section should have "
-        "2-3 key points to cover. Also generate the single best search query to research this topic.",
+        "You are a blog strategist. Create a detailed blog outline with:\n"
+        "- A compelling title\n"
+        "- A one-sentence intro hook that grabs attention\n"
+        "- EXACTLY 5-6 sections (never fewer than 5)\n"
+        "- Each section must have EXACTLY 3-4 key points — be specific, not generic\n"
+        "- The best single search query to research this topic\n\n"
+        "Do not produce fewer than 5 sections. Do not produce fewer than 3 key points per section.",
     ),
     (
         "human",
